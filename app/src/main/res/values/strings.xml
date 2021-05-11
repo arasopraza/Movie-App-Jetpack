@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Movies</string>
+    <string name="detail_movie">Detail Movie</string>
+    <string name="movie">Movie</string>
+    <string name="tvshow">TV Show</string>
+    <string name="title">Title</string>
+    <string name="title_movie">Title Movie</string>
+    <string name="release">Release</string>
+    <string name="release_movie">Release Movie</string>
+    <string name="overview">Overview</string>
+    <string name="overview_movie">Overview Movie</string>
+</resources>
