@@ -17,9 +17,9 @@ class RemoteDataSource {
         private var instance: RemoteDataSource? = null
 
         fun getInstance(): RemoteDataSource =
-                instance ?: synchronized(this) {
-                    instance ?: RemoteDataSource().apply { instance = this }
-                }
+            instance ?: synchronized(this) {
+                instance ?: RemoteDataSource().apply { instance = this }
+            }
     }
 
     fun getDiscoverMovies(callback: LoadMoviesCallback) {
@@ -40,11 +40,13 @@ class RemoteDataSource {
         })
     }
 
-
     fun getDiscoverTvshow(callback: LoadTvshowsCallback) {
         val client = ApiConfig.getApiService().getDiscoverTvshow()
         client.enqueue(object : retrofit2.Callback<TvshowResponse> {
-            override fun onResponse(call: Call<TvshowResponse>, response: Response<TvshowResponse>) {
+            override fun onResponse(
+                call: Call<TvshowResponse>,
+                response: Response<TvshowResponse>
+            ) {
                 if (response.isSuccessful) {
                     Log.d(this@RemoteDataSource.toString(), "Get TV Success")
                     callback.onAllTvshowsReceived(response.body()?.results)

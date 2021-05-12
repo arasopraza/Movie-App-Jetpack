@@ -1,4 +1,4 @@
-package com.aras.movies.ui.tvshows
+package com.aras.movies.ui.tvshow
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -7,5 +7,5 @@ import com.aras.movies.data.source.local.entity.TvshowEntity
 
 class TvShowViewModel(private val movieRepository: MovieRepository) : ViewModel() {
 
-    fun getTvShow() : LiveData<List<TvshowEntity>> = movieRepository.getDiscoverTvshow()
+    fun getTvShow() : LiveData<List<TvshowEntity>> = movieRepository.getDiscoverTvshows()
 }

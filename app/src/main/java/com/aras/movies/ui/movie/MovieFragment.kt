@@ -1,4 +1,4 @@
-package com.aras.movies.ui.movies
+package com.aras.movies.ui.movie
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,17 +25,15 @@ class MovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
-            val factory = ViewModelFactory.getInstance(requireActivity())
+            val factory = ViewModelFactory.getInstance()
             val viewModel = ViewModelProvider(this, factory)[MovieViewModel::class.java]
 
             val movieAdapter = MovieAdapter()
 
             fragmentMovieBinding.progressBar.visibility = View.VISIBLE
-            viewModel.getMovies().observe(this, { movies ->
-//                val movies = viewModel.getMovies().value
+            viewModel.getMovies().observe(viewLifecycleOwner, {
                 fragmentMovieBinding.progressBar.visibility = View.GONE
-                movieAdapter.setMovies(movies)
-                movieAdapter.notifyDataSetChanged()
+                movieAdapter.setMovies(it)
             })
 
             with(fragmentMovieBinding.rvMovie) {

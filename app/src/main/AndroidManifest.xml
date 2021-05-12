@@ -12,7 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Movies">
         <activity
-            android:name=".ui.detail.DetailMovieActivity"
+            android:name=".ui.detail.tvshow.DetailTvshowActivity"
+            android:label="@string/detail_tv"
+            android:parentActivityName=".ui.home.HomeActivity"
+            android:theme="@style/Theme.Movies.NoActionBar">
+        </activity>
+        <activity
+            android:name=".ui.detail.movie.DetailMovieActivity"
             android:label="@string/detail_movie"
             android:parentActivityName=".ui.home.HomeActivity"
             android:theme="@style/Theme.Movies.NoActionBar">
@@ -22,9 +28,9 @@
         </activity>
         <activity
             android:name=".ui.home.HomeActivity"
-            android:label="@string/app_name">
-        </activity>
-        <activity android:name=".ui.home.SplashScreenActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".ui.home.SplashScreenActivity"
             android:theme="@style/Theme.Movies.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

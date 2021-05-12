@@ -1,11 +1,13 @@
-package com.aras.movies.ui.tvshows
+package com.aras.movies.ui.tvshow
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aras.movies.R
 import com.aras.movies.data.source.local.entity.TvshowEntity
 import com.aras.movies.databinding.ItemsMovieBinding
+import com.aras.movies.ui.detail.tvshow.DetailTvshowActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
@@ -16,10 +18,12 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvshowViewHolder>() {
         if (tvshows == null) return
         this.listTvshows.clear()
         this.listTvshows.addAll(tvshows)
+        this.notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvshowViewHolder {
-        val itemsTvshowBinding = ItemsMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemsTvshowBinding =
+            ItemsMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TvshowViewHolder(itemsTvshowBinding)
     }
 
@@ -33,24 +37,27 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvshowViewHolder>() {
         holder.bind(tvshow)
     }
 
-    class TvshowViewHolder(private val binding: ItemsMovieBinding) : RecyclerView.ViewHolder(binding.root) {
+    class TvshowViewHolder(private val binding: ItemsMovieBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(tvshow: TvshowEntity) {
             with(binding) {
                 tvItemTitle.text = tvshow.name
                 tvItemDate.text = tvshow.firstAirDate
                 tvItemOverview.text = tvshow.overview
 
-//                itemView.setOnClickListener{
-//                    val intent = Intent(itemView.context, DetailMovieActivity::class.java)
-//                    intent.putExtra(DetailMovieActivity.EXTRA_TVSHOW, tvshow.tvshowId)
-//                    itemView.context.startActivity(intent)
-//                }
+                itemView.setOnClickListener{
+                    val intent = Intent(itemView.context, DetailTvshowActivity::class.java)
+                    intent.putExtra(DetailTvshowActivity.EXTRA_TVSHOW, tvshow.id)
+                    itemView.context.startActivity(intent)
+                }
 
                 Glide.with(itemView.context)
-                        .load(tvshow.posterPath)
-                        .apply(RequestOptions.placeholderOf(R.drawable.ic_loading)
-                                .error(R.drawable.ic_error))
-                        .into(imgPoster)
+                    .load("https://image.tmdb.org/t/p/w500/" + tvshow.posterPath)
+                    .apply(
+                        RequestOptions.placeholderOf(R.drawable.ic_loading)
+                            .error(R.drawable.ic_error)
+                    )
+                    .into(imgPoster)
             }
         }
     }

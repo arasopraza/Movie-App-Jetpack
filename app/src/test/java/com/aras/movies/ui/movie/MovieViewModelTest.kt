@@ -1,9 +1,4 @@
-package com.aras.movies.ui.movies
-
-import junit.framework.TestCase.assertEquals
-import org.junit.Before
-import org.junit.Test
-import org.mockito.Mockito.*
+package com.aras.movies.ui.movie
 
 class MovieViewModelTest {
 

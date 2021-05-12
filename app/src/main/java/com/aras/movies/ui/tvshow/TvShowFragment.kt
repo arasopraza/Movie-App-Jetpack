@@ -1,4 +1,4 @@
-package com.aras.movies.ui.tvshows
+package com.aras.movies.ui.tvshow
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.aras.movies.databinding.FragmentTvshowBinding
 import com.aras.movies.viewmodel.ViewModelFactory
 
@@ -24,15 +25,19 @@ class TvShowFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
-            val factory = ViewModelFactory.getInstance(requireActivity())
+            val factory = ViewModelFactory.getInstance()
             val viewModel = ViewModelProvider(this, factory)[TvShowViewModel::class.java]
-            val tvshows = viewModel.getTvShow().value
 
             val tvshowAdapter = TvShowAdapter()
-            tvshowAdapter.setTvshows(tvshows)
+
+            fragmentTvshowBinding.progressBar.visibility = View.VISIBLE
+            viewModel.getTvShow().observe(viewLifecycleOwner, {
+                fragmentTvshowBinding.progressBar.visibility = View.GONE
+                tvshowAdapter.setTvshows(it)
+            })
 
             with(fragmentTvshowBinding.rvTvshow) {
-                layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
+                layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
                 adapter = tvshowAdapter
             }

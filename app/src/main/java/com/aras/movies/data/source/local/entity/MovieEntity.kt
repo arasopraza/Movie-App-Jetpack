@@ -1,7 +1,10 @@
 package com.aras.movies.data.source.local.entity
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class MovieEntity(
 
         @field:SerializedName("overview")
@@ -33,4 +36,4 @@ data class MovieEntity(
 
         @field:SerializedName("vote_count")
         val voteCount: Int
-)
+) : Parcelable

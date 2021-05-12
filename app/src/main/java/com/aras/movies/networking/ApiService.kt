@@ -11,4 +11,5 @@ interface ApiService {
 
     @GET("discover/tv?api_key=d6a667ee46946b25455e52a30011b9a6")
     fun getDiscoverTvshow(): Call<TvshowResponse>
+
 }

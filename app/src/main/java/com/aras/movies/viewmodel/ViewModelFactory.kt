@@ -1,13 +1,12 @@
 package com.aras.movies.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.aras.movies.data.source.MovieRepository
 import com.aras.movies.di.Injection
-import com.aras.movies.ui.detail.DetailMovieViewModel
-import com.aras.movies.ui.movies.MovieViewModel
-import com.aras.movies.ui.tvshows.TvShowViewModel
+import com.aras.movies.ui.detail.movie.DetailMovieViewModel
+import com.aras.movies.ui.movie.MovieViewModel
+import com.aras.movies.ui.tvshow.TvShowViewModel
 
 class ViewModelFactory private constructor(private val mMovieRepository: MovieRepository) : ViewModelProvider.NewInstanceFactory() {
 
@@ -15,9 +14,9 @@ class ViewModelFactory private constructor(private val mMovieRepository: MovieRe
         @Volatile
         private var instance: ViewModelFactory? = null
 
-        fun getInstance(context: Context): ViewModelFactory =
+        fun getInstance(): ViewModelFactory =
                 instance ?: synchronized(this) {
-                    instance ?: ViewModelFactory(Injection.provideRepository(context)).apply {
+                    instance ?: ViewModelFactory(Injection.provideRepository()).apply {
                         instance = this
                     }
                 }

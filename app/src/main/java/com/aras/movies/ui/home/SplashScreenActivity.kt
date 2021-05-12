@@ -8,6 +8,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.aras.movies.R
 
+@Suppress("DEPRECATION")
 class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

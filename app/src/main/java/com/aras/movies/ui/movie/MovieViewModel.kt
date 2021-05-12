@@ -1,4 +1,4 @@
-package com.aras.movies.ui.movies
+package com.aras.movies.ui.movie
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
