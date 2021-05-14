@@ -44,7 +44,7 @@ class DetailTvshowActivity : AppCompatActivity() {
 
             activityDetailMovieBinding.progressBar.visibility = View.VISIBLE
             activityDetailMovieBinding.content.visibility = View.INVISIBLE
-            viewModel.getTvshows().observe(this, {
+            viewModel.getTvshow().observe(this, {
                 activityDetailMovieBinding.progressBar.visibility = View.GONE
                 activityDetailMovieBinding.content.visibility = View.VISIBLE
                 populateTvshow(it)

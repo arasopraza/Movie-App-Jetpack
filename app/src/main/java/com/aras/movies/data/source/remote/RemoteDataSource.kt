@@ -7,6 +7,7 @@ import com.aras.movies.data.source.local.entity.TvshowEntity
 import com.aras.movies.data.source.remote.response.MovieResponse
 import com.aras.movies.data.source.remote.response.TvshowResponse
 import com.aras.movies.networking.ApiConfig
+import com.aras.movies.utils.EspressoIdlingResource
 import retrofit2.Call
 import retrofit2.Response
 
@@ -23,12 +24,14 @@ class RemoteDataSource {
     }
 
     fun getDiscoverMovies(callback: LoadMoviesCallback) {
+        EspressoIdlingResource.increment()
         val client = ApiConfig.getApiService().getDiscoverMovie()
         client.enqueue(object : retrofit2.Callback<MovieResponse> {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 if (response.isSuccessful) {
                     Log.d(this@RemoteDataSource.toString(), "Get Movie Success")
                     callback.onAllMoviesReceived(response.body()?.results)
+                    EspressoIdlingResource.decrement()
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
@@ -41,6 +44,7 @@ class RemoteDataSource {
     }
 
     fun getDiscoverTvshow(callback: LoadTvshowsCallback) {
+        EspressoIdlingResource.increment()
         val client = ApiConfig.getApiService().getDiscoverTvshow()
         client.enqueue(object : retrofit2.Callback<TvshowResponse> {
             override fun onResponse(
@@ -50,6 +54,7 @@ class RemoteDataSource {
                 if (response.isSuccessful) {
                     Log.d(this@RemoteDataSource.toString(), "Get TV Success")
                     callback.onAllTvshowsReceived(response.body()?.results)
+                    EspressoIdlingResource.decrement()
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
