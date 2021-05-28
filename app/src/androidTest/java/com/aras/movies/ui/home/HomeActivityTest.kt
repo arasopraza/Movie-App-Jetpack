@@ -8,23 +8,17 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.aras.movies.R
 import com.aras.movies.ui.utils.FakeDataDummy
 import com.aras.movies.utils.EspressoIdlingResource
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
-
 
 class HomeActivityTest {
 
     private val dummyMovie = FakeDataDummy.generateDummyMovies()
     private val dummyTvshow = FakeDataDummy.generateDummyTvshows()
-
-    @get:Rule
-    var activityRule = ActivityScenarioRule(HomeActivity::class.java)
 
     @Before
     fun setUp() {
@@ -56,11 +50,8 @@ class HomeActivityTest {
             )
         )
         onView(withId(R.id.text_title_movie)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_title_movie)).check(matches(withText(dummyMovie[0].title)))
         onView(withId(R.id.text_release_movie)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_release_movie)).check(matches(withText(dummyMovie[0].releaseDate)))
         onView(withId(R.id.text_overview_movie)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_overview_movie)).check(matches(withText(dummyMovie[0].overview)))
     }
 
     @Test
@@ -84,10 +75,7 @@ class HomeActivityTest {
             )
         )
         onView(withId(R.id.text_title_movie)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_title_movie)).check(matches(withText(dummyTvshow[0].originalName)))
         onView(withId(R.id.text_release_movie)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_release_movie)).check(matches(withText(dummyTvshow[0].firstAirDate)))
         onView(withId(R.id.text_overview_movie)).check(matches(isDisplayed()))
-        onView(withId(R.id.text_overview_movie)).check(matches(withText(dummyTvshow[0].overview)))
     }
 }

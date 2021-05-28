@@ -31,10 +31,10 @@ class RemoteDataSource {
                 if (response.isSuccessful) {
                     Log.d(this@RemoteDataSource.toString(), "Get Movie Success")
                     callback.onAllMoviesReceived(response.body()?.results)
-                    EspressoIdlingResource.decrement()
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
+                EspressoIdlingResource.decrement()
             }
 
             override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
@@ -54,10 +54,10 @@ class RemoteDataSource {
                 if (response.isSuccessful) {
                     Log.d(this@RemoteDataSource.toString(), "Get TV Success")
                     callback.onAllTvshowsReceived(response.body()?.results)
-                    EspressoIdlingResource.decrement()
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
+                    EspressoIdlingResource.decrement()
             }
 
             override fun onFailure(call: Call<TvshowResponse>, t: Throwable) {
