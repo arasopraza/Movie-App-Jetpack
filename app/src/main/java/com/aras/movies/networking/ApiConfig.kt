@@ -6,17 +6,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiConfig {
-
-//    private val httpClient = OkHttpClient.Builder().apply {
-//    }.build()
-//
-//    private val retrofit: Retrofit.Builder by lazy {
-//        Retrofit.Builder().apply {
-//            client(httpClient)
-//            baseUrl("https://api.themoviedb.org/3/")
-//            addConverterFactory(GsonConverterFactory.create())
-//        }
-//    }
     companion object {
         fun getApiService(): ApiService {
             val loggingInterceptor =
@@ -32,10 +21,4 @@ class ApiConfig {
             return retrofit.create(ApiService::class.java)
         }
     }
-
-//    val instance: ApiService by lazy {
-//        retrofit
-//            .build()
-//            .create(ApiService::class.java)
-//    }
 }
