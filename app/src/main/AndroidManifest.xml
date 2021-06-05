@@ -12,13 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Movies">
         <activity
-            android:name=".ui.detail.tvshow.DetailTvshowActivity"
-            android:label="@string/detail_tv"
-            android:parentActivityName=".ui.home.HomeActivity"
-            android:theme="@style/Theme.Movies.NoActionBar">
-        </activity>
-        <activity
-            android:name=".ui.detail.movie.DetailMovieActivity"
+            android:name=".ui.detail.DetailMovieActivity"
             android:label="@string/detail_movie"
             android:parentActivityName=".ui.home.HomeActivity"
             android:theme="@style/Theme.Movies.NoActionBar">

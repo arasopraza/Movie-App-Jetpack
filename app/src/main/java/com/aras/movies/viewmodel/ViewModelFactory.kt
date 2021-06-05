@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.aras.movies.data.source.MovieRepository
 import com.aras.movies.di.Injection
-import com.aras.movies.ui.detail.movie.DetailMovieViewModel
+import com.aras.movies.ui.detail.DetailMovieViewModel
 import com.aras.movies.ui.movie.MovieViewModel
 import com.aras.movies.ui.tvshow.TvShowViewModel
 

@@ -6,7 +6,6 @@ import androidx.lifecycle.Observer
 import com.aras.movies.data.source.MovieRepository
 import com.aras.movies.data.source.remote.response.MovieItems
 import com.aras.movies.data.source.remote.response.TvshowItems
-import com.aras.movies.ui.detail.movie.DetailMovieViewModel
 import com.aras.movies.utils.DataDummy
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull

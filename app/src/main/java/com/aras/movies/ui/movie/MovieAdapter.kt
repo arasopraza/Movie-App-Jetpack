@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aras.movies.R
 import com.aras.movies.data.source.remote.response.MovieItems
 import com.aras.movies.databinding.ItemsMovieBinding
-import com.aras.movies.ui.detail.movie.DetailMovieActivity
+import com.aras.movies.ui.detail.DetailMovieActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.aras.movies.R
 import com.aras.movies.data.source.remote.response.TvshowItems
 import com.aras.movies.databinding.ItemsMovieBinding
-import com.aras.movies.ui.detail.tvshow.DetailTvshowActivity
+import com.aras.movies.ui.detail.DetailMovieActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
@@ -45,8 +45,8 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvshowViewHolder>() {
                 tvItemOverview.text = tvshow.overview
 
                 itemView.setOnClickListener{
-                    val intent = Intent(itemView.context, DetailTvshowActivity::class.java)
-                    intent.putExtra(DetailTvshowActivity.EXTRA_TVSHOW, tvshow.tvshowId)
+                    val intent = Intent(itemView.context, DetailMovieActivity::class.java)
+                    intent.putExtra(DetailMovieActivity.EXTRA_TVSHOW, tvshow.tvshowId)
                     itemView.context.startActivity(intent)
                 }
 
