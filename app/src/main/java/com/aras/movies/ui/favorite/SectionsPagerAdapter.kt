@@ -1,4 +1,4 @@
-package com.aras.movies.ui.home
+package com.aras.movies.ui.favorite
 
 import android.content.Context
 import androidx.annotation.StringRes
