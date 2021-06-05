@@ -67,14 +67,14 @@ class DetailMovieActivity : AppCompatActivity() {
         }
     }
 
-    private fun populateMovie(movie: MovieItems) {
+    private fun populateMovie(data: MovieItems) {
         detailContentBinding.apply {
-            textTitleMovie.text = movie.title
-            textReleaseMovie.text = movie.releaseDate
-            textOverviewMovie.text = movie.overview
+            textTitleMovie.text = data.title
+            textReleaseMovie.text = data.releaseDate
+            textOverviewMovie.text = data.overview
 
             Glide.with(this@DetailMovieActivity)
-                .load("https://image.tmdb.org/t/p/w500/" + movie.posterPath)
+                .load("https://image.tmdb.org/t/p/w500/" + data.posterPath)
                 .transform(RoundedCorners(16))
                 .apply(
                     RequestOptions.placeholderOf(R.drawable.ic_loading)
@@ -84,14 +84,14 @@ class DetailMovieActivity : AppCompatActivity() {
         }
     }
 
-    private fun populateTvshow(tvshowEntity: TvshowItems) {
+    private fun populateTvshow(data: TvshowItems) {
         detailContentBinding.apply {
-            textTitleMovie.text = tvshowEntity.name
-            textReleaseMovie.text = tvshowEntity.firstAirDate
-            textOverviewMovie.text = tvshowEntity.overview
+            textTitleMovie.text = data.name
+            textReleaseMovie.text = data.firstAirDate
+            textOverviewMovie.text = data.overview
 
             Glide.with(this@DetailMovieActivity)
-                .load("https://image.tmdb.org/t/p/w500/" + tvshowEntity.posterPath)
+                .load("https://image.tmdb.org/t/p/w500/" + data.posterPath)
                 .transform(RoundedCorners(16))
                 .apply(
                     RequestOptions.placeholderOf(R.drawable.ic_loading)

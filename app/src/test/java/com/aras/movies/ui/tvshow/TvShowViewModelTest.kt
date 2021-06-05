@@ -1,6 +1,5 @@
 package com.aras.movies.ui.tvshow
 
-
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer

@@ -7,7 +7,7 @@ import com.aras.movies.data.source.remote.RemoteDataSource
 import com.aras.movies.data.source.remote.response.MovieItems
 import com.aras.movies.data.source.remote.response.TvshowItems
 
-class FakeMovieRepository(private val remoteDataSource: RemoteDataSource) :
+class FakeMovieRepository (private val remoteDataSource: RemoteDataSource) :
     MovieDataSource {
 
     override fun getDiscoverMovies(): LiveData<List<MovieItems>> {
@@ -68,28 +68,12 @@ class FakeMovieRepository(private val remoteDataSource: RemoteDataSource) :
 
     override fun getDetailMovie(movieId: Int): LiveData<MovieItems> {
         val movieResults = MutableLiveData<MovieItems>()
-        remoteDataSource.getDiscoverMovies(object : RemoteDataSource.LoadMoviesCallback {
-            override fun onAllMoviesReceived(movieResponse: List<MovieItems>?) {
-                lateinit var movie: MovieItems
+
+        remoteDataSource.getDetailMovies(movieId, object : RemoteDataSource.LoadDetailMovieCallback {
+            override fun onAllMoviesReceived(movieResponse: MovieItems?) {
                 if (movieResponse != null) {
-                    for (response in movieResponse) {
-                        if (response.movieId == movieId) {
-                            movie = MovieItems(
-                                response.overview,
-                                response.originalLanguage,
-                                response.originalTitle,
-                                response.title,
-                                response.posterPath,
-                                response.releaseDate,
-                                response.popularity,
-                                response.voteAverage,
-                                response.movieId,
-                                response.voteCount
-                            )
-                        }
-                    }
+                    movieResults.value = movieResponse
                 }
-                movieResults.postValue(movie)
             }
         })
         return movieResults
@@ -97,28 +81,12 @@ class FakeMovieRepository(private val remoteDataSource: RemoteDataSource) :
 
     override fun getDetailTvshow(tvshowId: Int): LiveData<TvshowItems> {
         val tvshowResults = MutableLiveData<TvshowItems>()
-        remoteDataSource.getDiscoverTvshow(object : RemoteDataSource.LoadTvshowsCallback {
-            override fun onAllTvshowsReceived(tvshowResponse: List<TvshowItems>?) {
-                lateinit var tvshow: TvshowItems
+
+        remoteDataSource.getDetailTvshow(tvshowId, object : RemoteDataSource.LoadDetailTvshowCallback {
+            override fun onAllMoviesReceived(tvshowResponse: TvshowItems?) {
                 if (tvshowResponse != null) {
-                    for (response in tvshowResponse) {
-                        if (response.tvshowId == tvshowId) {
-                            tvshow = TvshowItems(
-                                response.firstAirDate,
-                                response.overview,
-                                response.originalLanguage,
-                                response.posterPath,
-                                response.originalName,
-                                response.popularity,
-                                response.voteAverage,
-                                response.name,
-                                response.tvshowId,
-                                response.voteCount
-                            )
-                        }
-                    }
+                    tvshowResults.value = tvshowResponse
                 }
-                tvshowResults.postValue(tvshow)
             }
         })
         return tvshowResults

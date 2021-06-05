@@ -6,6 +6,7 @@ import com.aras.movies.utils.DataDummy
 import com.aras.movies.utils.LiveDataTestUtil
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doAnswer
+import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -58,12 +59,13 @@ class MovieRepositoryTest {
     @Test
     fun getDetailMovie() {
         doAnswer { invocation ->
-            (invocation.arguments[0] as RemoteDataSource.LoadMoviesCallback)
-                .onAllMoviesReceived(movieResponses)
+            (invocation.arguments[1] as RemoteDataSource.LoadDetailMovieCallback)
+                .onAllMoviesReceived(movieEntity)
             null
-        }.`when`(remote).getDiscoverMovies(any())
+        }.`when`(remote).getDetailMovies(eq(movieId), any())
+
         val movieResult = LiveDataTestUtil.getValue(repository.getDetailMovie(movieId))
-        verify(remote).getDiscoverMovies(any())
+        verify(remote).getDetailMovies(eq(movieId), any())
         assertNotNull(movieResult)
         assertEquals(movieEntity.originalTitle, movieResult.originalTitle)
     }
@@ -71,12 +73,13 @@ class MovieRepositoryTest {
     @Test
     fun getDetailTvshow() {
         doAnswer { invocation ->
-            (invocation.arguments[0] as RemoteDataSource.LoadTvshowsCallback)
-                .onAllTvshowsReceived(tvshowResponses)
+            (invocation.arguments[1] as RemoteDataSource.LoadDetailTvshowCallback)
+                .onAllMoviesReceived(tvshowEntity)
             null
-        }.`when`(remote).getDiscoverTvshow(any())
+        }.`when`(remote).getDetailTvshow(eq(tvshowId), any())
+
         val tvshowResult = LiveDataTestUtil.getValue(repository.getDetailTvshow(tvshowId))
-        verify(remote).getDiscoverTvshow(any())
+        verify(remote).getDetailTvshow(eq(tvshowId), any())
         assertNotNull(tvshowResult)
         assertEquals(tvshowEntity.originalName, tvshowResult.originalName)
     }

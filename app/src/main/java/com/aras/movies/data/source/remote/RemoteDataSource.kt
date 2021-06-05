@@ -40,6 +40,26 @@ class RemoteDataSource {
         })
     }
 
+    fun getDetailMovies(id: Int, callback: LoadDetailMovieCallback) {
+        EspressoIdlingResource.increment()
+        val client = ApiConfig.getApiService().getDetailMovie(id)
+        client.enqueue(object : retrofit2.Callback<MovieItems> {
+            override fun onResponse(call: Call<MovieItems>, response: Response<MovieItems>) {
+                if (response.isSuccessful) {
+                    Log.d(this@RemoteDataSource.toString(), "Get Movie Success")
+                    callback.onAllMoviesReceived(response.body())
+                } else {
+                    Log.e(TAG, "onFailure: ${response.message()}")
+                }
+                EspressoIdlingResource.decrement()
+            }
+
+            override fun onFailure(call: Call<MovieItems>, t: Throwable) {
+                Log.e(TAG, "onFailure: ${t.message.toString()}")
+            }
+        })
+    }
+
     fun getDiscoverTvshow(callback: LoadTvshowsCallback) {
         EspressoIdlingResource.increment()
         val client = ApiConfig.getApiService().getDiscoverTvshow()
@@ -60,11 +80,39 @@ class RemoteDataSource {
         })
     }
 
+    fun getDetailTvshow(id: Int, callback: LoadDetailTvshowCallback) {
+        EspressoIdlingResource.increment()
+        val client = ApiConfig.getApiService().getDetailTvshow(id)
+        client.enqueue(object : retrofit2.Callback<TvshowItems> {
+            override fun onResponse(call: Call<TvshowItems>, response: Response<TvshowItems>) {
+                if (response.isSuccessful) {
+                    Log.d(this@RemoteDataSource.toString(), "Get Movie Success")
+                    callback.onAllMoviesReceived(response.body())
+                } else {
+                    Log.e(TAG, "onFailure: ${response.message()}")
+                }
+                EspressoIdlingResource.decrement()
+            }
+
+            override fun onFailure(call: Call<TvshowItems>, t: Throwable) {
+                Log.e(TAG, "onFailure: ${t.message.toString()}")
+            }
+        })
+    }
+
     interface LoadMoviesCallback {
         fun onAllMoviesReceived(movieResponse: List<MovieItems>?)
     }
 
+    interface LoadDetailMovieCallback {
+        fun onAllMoviesReceived(movieResponse: MovieItems?)
+    }
+
     interface LoadTvshowsCallback {
         fun onAllTvshowsReceived(tvshowResponse: List<TvshowItems>?)
+    }
+
+    interface LoadDetailTvshowCallback {
+        fun onAllMoviesReceived(tvshowResponse: TvshowItems?)
     }
 }
