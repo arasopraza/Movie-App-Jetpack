@@ -5,7 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.aras.movies.R
-import com.aras.movies.data.source.local.entity.MovieEntity
+import com.aras.movies.data.source.remote.response.MovieItems
 import com.aras.movies.databinding.ActivityDetailMovieBinding
 import com.aras.movies.databinding.ContentDetailMovieBinding
 import com.aras.movies.viewmodel.ViewModelFactory
@@ -51,14 +51,14 @@ class DetailMovieActivity : AppCompatActivity() {
         }
     }
 
-    private fun populateMovie(movieEntity: MovieEntity) {
+    private fun populateMovie(movie: MovieItems) {
         detailContentBinding.apply {
-            textTitleMovie.text = movieEntity.title
-            textReleaseMovie.text = movieEntity.releaseDate
-            textOverviewMovie.text = movieEntity.overview
+            textTitleMovie.text = movie.title
+            textReleaseMovie.text = movie.releaseDate
+            textOverviewMovie.text = movie.overview
 
             Glide.with(this@DetailMovieActivity)
-                .load("https://image.tmdb.org/t/p/w500/" + movieEntity.posterPath)
+                .load("https://image.tmdb.org/t/p/w500/" + movie.posterPath)
                 .transform(RoundedCorners(16))
                 .apply(
                     RequestOptions.placeholderOf(R.drawable.ic_loading)

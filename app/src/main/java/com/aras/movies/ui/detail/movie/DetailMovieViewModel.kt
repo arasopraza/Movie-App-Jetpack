@@ -3,8 +3,8 @@ package com.aras.movies.ui.detail.movie
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.aras.movies.data.source.MovieRepository
-import com.aras.movies.data.source.local.entity.MovieEntity
-import com.aras.movies.data.source.local.entity.TvshowEntity
+import com.aras.movies.data.source.remote.response.MovieItems
+import com.aras.movies.data.source.remote.response.TvshowItems
 import kotlin.properties.Delegates
 
 class DetailMovieViewModel(private val movieRepository: MovieRepository) : ViewModel() {
@@ -19,6 +19,6 @@ class DetailMovieViewModel(private val movieRepository: MovieRepository) : ViewM
         this.tvshowId = tvshowId
     }
 
-    fun getMovie(): LiveData<MovieEntity> = movieRepository.getDetailMovie(movieId)
-    fun getTvshow(): LiveData<TvshowEntity> = movieRepository.getDetailTvshow(tvshowId)
+    fun getMovie(): LiveData<MovieItems> = movieRepository.getDetailMovie(movieId)
+    fun getTvshow(): LiveData<TvshowItems> = movieRepository.getDetailTvshow(tvshowId)
 }

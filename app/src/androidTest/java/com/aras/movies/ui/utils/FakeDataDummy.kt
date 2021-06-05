@@ -1,17 +1,17 @@
 package com.aras.movies.ui.utils
 
-import com.aras.movies.data.source.local.entity.MovieEntity
-import com.aras.movies.data.source.local.entity.TvshowEntity
+import com.aras.movies.data.source.remote.response.MovieItems
+import com.aras.movies.data.source.remote.response.TvshowItems
 
 
 object FakeDataDummy {
 
-    fun generateDummyMovies(): List<MovieEntity> {
+    fun generateDummyMovies(): List<MovieItems> {
 
-        val movies = ArrayList<MovieEntity>()
+        val movies = ArrayList<MovieItems>()
 
         movies.add(
-            MovieEntity(
+            MovieItems(
                 "Five years after an ominous unseen presence drives most of society to suicide, a survivor and her two children make a desperate bid to reach safety.",
                 "en",
                 "Bird Box",
@@ -26,7 +26,7 @@ object FakeDataDummy {
         )
 
         movies.add(
-            MovieEntity(
+            MovieItems(
                 "Tyler Rake, a fearless mercenary who offers his services on the black market, embarks on a dangerous mission when he is hired to rescue the kidnapped son of a Mumbai crime lord.",
                 "en",
                 "Extraction",
@@ -41,7 +41,7 @@ object FakeDataDummy {
         )
 
         movies.add(
-            MovieEntity(
+            MovieItems(
                 "This documentary-drama hybrid explores the dangerous human impact of social networking, with tech experts sounding the alarm on their own creations.",
                 "en",
                 "The Social Dilemma",
@@ -56,7 +56,7 @@ object FakeDataDummy {
         )
 
         movies.add(
-            MovieEntity(
+            MovieItems(
                 "A mysterious place, an indescribable prison, a deep hole. An unknown number of levels. Two inmates living on each level. A descending platform containing food for all of them. An inhuman fight for survival, but also an opportunity for solidarity.",
                 "es",
                 "El hoyo",
@@ -71,7 +71,7 @@ object FakeDataDummy {
         )
 
         movies.add(
-            MovieEntity(
+            MovieItems(
                 "All unemployed, Ki-taek's family takes peculiar interest in the wealthy and glamorous Parks for their livelihood until they get entangled in an unexpected incident",
                 "ko",
                 "Parasite",
@@ -86,7 +86,7 @@ object FakeDataDummy {
         )
 
         movies.add(
-            MovieEntity(
+            MovieItems(
                 "During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure.",
                 "en",
                 "Joker",
@@ -101,7 +101,7 @@ object FakeDataDummy {
         )
 
         movies.add(
-            MovieEntity(
+            MovieItems(
                 "After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store.",
                 "en",
                 "Avengers: Endgame",
@@ -116,7 +116,7 @@ object FakeDataDummy {
         )
 
         movies.add(
-            MovieEntity(
+            MovieItems(
                 "In a time when monsters walk the Earth, humanity’s fight for its future sets Godzilla and Kong on a collision course that will see the two most powerful forces of nature on the planet collide in a spectacular battle for the ages.",
                 "en",
                 "Godzilla vs. Kong",
@@ -131,7 +131,7 @@ object FakeDataDummy {
         )
 
         movies.add(
-            MovieEntity(
+            MovieItems(
                 "Batman raises the stakes in his war on crime. With the help of Lt. Jim Gordon and District Attorney Harvey Dent, Batman sets out to dismantle the remaining criminal organizations that plague the streets. The partnership proves to be effective, but they soon find themselves prey to a reign of chaos unleashed by a rising criminal mastermind known to the terrified citizens of Gotham as the Joker.",
                 "en",
                 "The Dark Knight",
@@ -146,7 +146,7 @@ object FakeDataDummy {
         )
 
         movies.add(
-            MovieEntity(
+            MovieItems(
                 "Washed-up MMA fighter Cole Young, unaware of his heritage, and hunted by Emperor Shang Tsung's best warrior, Sub-Zero, seeks out and trains with Earth's greatest champions as he prepares to stand against the enemies of Outworld in a high stakes battle for the universe.",
                 "en",
                 "Mortal Kombat",
@@ -162,12 +162,12 @@ object FakeDataDummy {
         return movies
     }
 
-    fun generateDummyTvshows(): List<TvshowEntity> {
+    fun generateDummyTvshows(): List<TvshowItems> {
 
-        val tvshows = ArrayList<TvshowEntity>()
+        val tvshows = ArrayList<TvshowItems>()
 
         tvshows.add(
-            TvshowEntity(
+            TvshowItems(
                 "2020-10-23",
                 "In a Kentucky orphanage in the 1950s, a young girl discovers an astonishing talent for chess while struggling with addiction.",
                 "en",
@@ -182,7 +182,7 @@ object FakeDataDummy {
         )
 
         tvshows.add(
-            TvshowEntity(
+            TvshowItems(
                 "2017-10-24",
                 "James is 17 and is pretty sure he is a psychopath. Alyssa, also 17, is the cool and moody new girl at school. The pair make a connection and she persuades him to embark on a darkly comedic road trip in search of her real father.",
                 "en",
@@ -197,7 +197,7 @@ object FakeDataDummy {
         )
 
         tvshows.add(
-            TvshowEntity(
+            TvshowItems(
                 "2015-08-28",
                 "A gritty chronicle of the war against Colombia's infamously violent and powerful drug cartels.",
                 "en",
@@ -212,7 +212,7 @@ object FakeDataDummy {
         )
 
         tvshows.add(
-            TvshowEntity(
+            TvshowItems(
                 "2008-01-20",
                 "When Walter White, a New Mexico chemistry teacher, is diagnosed with Stage III cancer and given a prognosis of only two years left to live. He becomes filled with a sense of fearlessness and an unrelenting desire to secure his family's financial future at any cost as he enters the dangerous world of drugs and crime.",
                 "en",
@@ -227,7 +227,7 @@ object FakeDataDummy {
         )
 
         tvshows.add(
-            TvshowEntity(
+            TvshowItems(
                 "2005-08-29",
                 "Due to a political conspiracy, an innocent man is sent to death row and his only hope is his brother, who makes it his mission to deliberately get himself sent to the same prison in order to break the both of them out, from the inside out.",
                 "en",
@@ -242,7 +242,7 @@ object FakeDataDummy {
         )
 
         tvshows.add(
-            TvshowEntity(
+            TvshowItems(
                 "2013-09-12",
                 "A gangster family epic set in 1919 Birmingham, England and centered on a gang who sew razor blades in the peaks of their caps, and their fierce boss Tommy Shelby, who means to move up in the world.",
                 "en",
@@ -257,7 +257,7 @@ object FakeDataDummy {
         )
 
         tvshows.add(
-            TvshowEntity(
+            TvshowItems(
                 "2018-10-05",
                 "When three working class kids enroll in the most exclusive school in Spain, the clash between the wealthy and the poor students leads to tragedy.",
                 "es",
@@ -272,7 +272,7 @@ object FakeDataDummy {
         )
 
         tvshows.add(
-            TvshowEntity(
+            TvshowItems(
                 "2018-09-24",
                 "When a Galician shipper and drug lord hiding his Alzheimer's disease plans to retire, his second-in-command plots to steal the empire from the heir.",
                 "es",
@@ -287,7 +287,7 @@ object FakeDataDummy {
         )
 
         tvshows.add(
-            TvshowEntity(
+            TvshowItems(
                 "2020-01-31",
                 "In a colorful Seoul neighborhood, an ex-con and his friends fight a mighty foe to make their ambitious dreams for their street bar a reality",
                 "ko",
@@ -302,7 +302,7 @@ object FakeDataDummy {
         )
 
         tvshows.add(
-            TvshowEntity(
+            TvshowItems(
                 "2018-11-16",
                 "See the rise of the Guadalajara Cartel as an American DEA agent learns the danger of targeting narcos in 1980s Mexico.",
                 "en",

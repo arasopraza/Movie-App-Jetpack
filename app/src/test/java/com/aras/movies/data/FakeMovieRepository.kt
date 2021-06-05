@@ -3,21 +3,21 @@ package com.aras.movies.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.aras.movies.data.source.MovieDataSource
-import com.aras.movies.data.source.local.entity.MovieEntity
-import com.aras.movies.data.source.local.entity.TvshowEntity
 import com.aras.movies.data.source.remote.RemoteDataSource
+import com.aras.movies.data.source.remote.response.MovieItems
+import com.aras.movies.data.source.remote.response.TvshowItems
 
 class FakeMovieRepository(private val remoteDataSource: RemoteDataSource) :
     MovieDataSource {
 
-    override fun getDiscoverMovies(): LiveData<List<MovieEntity>> {
-        val movieResults = MutableLiveData<List<MovieEntity>>()
+    override fun getDiscoverMovies(): LiveData<List<MovieItems>> {
+        val movieResults = MutableLiveData<List<MovieItems>>()
         remoteDataSource.getDiscoverMovies(object : RemoteDataSource.LoadMoviesCallback {
-            override fun onAllMoviesReceived(movieResponse: List<MovieEntity>?) {
-                val movieList = ArrayList<MovieEntity>()
+            override fun onAllMoviesReceived(movieResponse: List<MovieItems>?) {
+                val movieList = ArrayList<MovieItems>()
                 if (movieResponse != null) {
                     for (response in movieResponse) {
-                        val movie = MovieEntity(
+                        val movie = MovieItems(
                             response.overview,
                             response.originalLanguage,
                             response.originalTitle,
@@ -26,7 +26,7 @@ class FakeMovieRepository(private val remoteDataSource: RemoteDataSource) :
                             response.releaseDate,
                             response.popularity,
                             response.voteAverage,
-                            response.id,
+                            response.movieId,
                             response.voteCount
                         )
                         movieList.add(movie)
@@ -38,14 +38,14 @@ class FakeMovieRepository(private val remoteDataSource: RemoteDataSource) :
         return movieResults
     }
 
-    override fun getDiscoverTvshows(): LiveData<List<TvshowEntity>> {
-        val movieResults = MutableLiveData<List<TvshowEntity>>()
+    override fun getDiscoverTvshows(): LiveData<List<TvshowItems>> {
+        val movieResults = MutableLiveData<List<TvshowItems>>()
         remoteDataSource.getDiscoverTvshow(object : RemoteDataSource.LoadTvshowsCallback {
-            override fun onAllTvshowsReceived(tvshowResponse: List<TvshowEntity>?) {
-                val tvshowList = ArrayList<TvshowEntity>()
+            override fun onAllTvshowsReceived(tvshowResponse: List<TvshowItems>?) {
+                val tvshowList = ArrayList<TvshowItems>()
                 if (tvshowResponse != null) {
                     for (response in tvshowResponse) {
-                        val tvshow = TvshowEntity(
+                        val tvshow = TvshowItems(
                             response.firstAirDate,
                             response.overview,
                             response.originalLanguage,
@@ -54,7 +54,7 @@ class FakeMovieRepository(private val remoteDataSource: RemoteDataSource) :
                             response.popularity,
                             response.voteAverage,
                             response.name,
-                            response.id,
+                            response.tvshowId,
                             response.voteCount
                         )
                         tvshowList.add(tvshow)
@@ -66,15 +66,15 @@ class FakeMovieRepository(private val remoteDataSource: RemoteDataSource) :
         return movieResults
     }
 
-    override fun getDetailMovie(movieId: Int): LiveData<MovieEntity> {
-        val movieResults = MutableLiveData<MovieEntity>()
+    override fun getDetailMovie(movieId: Int): LiveData<MovieItems> {
+        val movieResults = MutableLiveData<MovieItems>()
         remoteDataSource.getDiscoverMovies(object : RemoteDataSource.LoadMoviesCallback {
-            override fun onAllMoviesReceived(movieResponse: List<MovieEntity>?) {
-                lateinit var movie: MovieEntity
+            override fun onAllMoviesReceived(movieResponse: List<MovieItems>?) {
+                lateinit var movie: MovieItems
                 if (movieResponse != null) {
                     for (response in movieResponse) {
-                        if (response.id == movieId) {
-                            movie = MovieEntity(
+                        if (response.movieId == movieId) {
+                            movie = MovieItems(
                                 response.overview,
                                 response.originalLanguage,
                                 response.originalTitle,
@@ -83,7 +83,7 @@ class FakeMovieRepository(private val remoteDataSource: RemoteDataSource) :
                                 response.releaseDate,
                                 response.popularity,
                                 response.voteAverage,
-                                response.id,
+                                response.movieId,
                                 response.voteCount
                             )
                         }
@@ -95,15 +95,15 @@ class FakeMovieRepository(private val remoteDataSource: RemoteDataSource) :
         return movieResults
     }
 
-    override fun getDetailTvshow(tvshowId: Int): LiveData<TvshowEntity> {
-        val tvshowResults = MutableLiveData<TvshowEntity>()
+    override fun getDetailTvshow(tvshowId: Int): LiveData<TvshowItems> {
+        val tvshowResults = MutableLiveData<TvshowItems>()
         remoteDataSource.getDiscoverTvshow(object : RemoteDataSource.LoadTvshowsCallback {
-            override fun onAllTvshowsReceived(tvshowResponse: List<TvshowEntity>?) {
-                lateinit var tvshow: TvshowEntity
+            override fun onAllTvshowsReceived(tvshowResponse: List<TvshowItems>?) {
+                lateinit var tvshow: TvshowItems
                 if (tvshowResponse != null) {
                     for (response in tvshowResponse) {
-                        if (response.id == tvshowId) {
-                            tvshow = TvshowEntity(
+                        if (response.tvshowId == tvshowId) {
+                            tvshow = TvshowItems(
                                 response.firstAirDate,
                                 response.overview,
                                 response.originalLanguage,
@@ -112,7 +112,7 @@ class FakeMovieRepository(private val remoteDataSource: RemoteDataSource) :
                                 response.popularity,
                                 response.voteAverage,
                                 response.name,
-                                response.id,
+                                response.tvshowId,
                                 response.voteCount
                             )
                         }

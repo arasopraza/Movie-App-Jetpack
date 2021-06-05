@@ -22,11 +22,11 @@ class MovieRepositoryTest {
     private val repository = FakeMovieRepository(remote)
 
     private val movieResponses = DataDummy.generateDummyMovies()
-    private val movieId = movieResponses[0].id
+    private val movieId = movieResponses[0].movieId
     private val movieEntity = DataDummy.generateMovieById(movieId)
 
     private val tvshowResponses = DataDummy.generateDummyTvshows()
-    private val tvshowId = tvshowResponses[0].id
+    private val tvshowId = tvshowResponses[0].tvshowId
     private val tvshowEntity = DataDummy.generateTvshowById(tvshowId)
 
     @Test

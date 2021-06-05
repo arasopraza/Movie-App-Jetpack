@@ -5,16 +5,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aras.movies.R
-import com.aras.movies.data.source.local.entity.TvshowEntity
+import com.aras.movies.data.source.remote.response.TvshowItems
 import com.aras.movies.databinding.ItemsMovieBinding
 import com.aras.movies.ui.detail.tvshow.DetailTvshowActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvshowViewHolder>() {
-    private var listTvshows = ArrayList<TvshowEntity>()
+    private var listTvshows = ArrayList<TvshowItems>()
 
-    fun setTvshows(tvshows: List<TvshowEntity>?) {
+    fun setTvshows(tvshows: List<TvshowItems>?) {
         if (tvshows == null) return
         this.listTvshows.clear()
         this.listTvshows.addAll(tvshows)
@@ -29,7 +29,6 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvshowViewHolder>() {
 
     override fun getItemCount(): Int {
         return listTvshows.size
-
     }
 
     override fun onBindViewHolder(holder: TvshowViewHolder, position: Int) {
@@ -39,7 +38,7 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvshowViewHolder>() {
 
     class TvshowViewHolder(private val binding: ItemsMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(tvshow: TvshowEntity) {
+        fun bind(tvshow: TvshowItems) {
             with(binding) {
                 tvItemTitle.text = tvshow.name
                 tvItemDate.text = tvshow.firstAirDate
@@ -47,7 +46,7 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvshowViewHolder>() {
 
                 itemView.setOnClickListener{
                     val intent = Intent(itemView.context, DetailTvshowActivity::class.java)
-                    intent.putExtra(DetailTvshowActivity.EXTRA_TVSHOW, tvshow.id)
+                    intent.putExtra(DetailTvshowActivity.EXTRA_TVSHOW, tvshow.tvshowId)
                     itemView.context.startActivity(intent)
                 }
 

@@ -9,6 +9,9 @@ interface ApiService {
     @GET("discover/movie?api_key=d6a667ee46946b25455e52a30011b9a6")
     fun getDiscoverMovie(): Call<MovieResponse>
 
+    @GET("movie/{movie_id}?api_key=d6a667ee46946b25455e52a30011b9a6")
+    fun getDetailMovie(): Call<MovieResponse>
+
     @GET("discover/tv?api_key=d6a667ee46946b25455e52a30011b9a6")
     fun getDiscoverTvshow(): Call<TvshowResponse>
 

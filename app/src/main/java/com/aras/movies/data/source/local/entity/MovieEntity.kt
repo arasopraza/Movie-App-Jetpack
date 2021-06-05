@@ -1,39 +1,37 @@
 package com.aras.movies.data.source.local.entity
 
-import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
+import androidx.annotation.NonNull
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-@Parcelize
+@Entity(tableName = "movie_entities")
 data class MovieEntity(
 
-        @field:SerializedName("overview")
+        @ColumnInfo(name = "overview")
         val overview: String,
 
-        @field:SerializedName("original_language")
-        val originalLanguage: String,
+//        val originalLanguage: String,
+//
+//        val originalTitle: String,
 
-        @field:SerializedName("original_title")
-        val originalTitle: String,
-
-        @field:SerializedName("title")
+        @ColumnInfo(name = "title")
         val title: String,
 
-        @field:SerializedName("poster_path")
+        @ColumnInfo(name = "poster_path")
         val posterPath: String,
 
-        @field:SerializedName("release_date")
+        @ColumnInfo(name = "release_date")
         val releaseDate: String,
 
-        @field:SerializedName("popularity")
-        val popularity: Double,
+//        val popularity: Double,
+//
+//        val voteAverage: Double,
 
-        @field:SerializedName("vote_average")
-        val voteAverage: Double,
+        @PrimaryKey
+        @NonNull
+        @ColumnInfo(name = "movieId")
+        val movieid: Int
 
-        @field:SerializedName("id")
-        val id: Int,
-
-        @field:SerializedName("vote_count")
-        val voteCount: Int
-) : Parcelable
+//        val voteCount: Int
+)

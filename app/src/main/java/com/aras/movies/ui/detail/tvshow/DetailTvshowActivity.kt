@@ -1,11 +1,11 @@
 package com.aras.movies.ui.detail.tvshow
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.aras.movies.R
-import com.aras.movies.data.source.local.entity.TvshowEntity
+import com.aras.movies.data.source.remote.response.TvshowItems
 import com.aras.movies.databinding.ActivityDetailMovieBinding
 import com.aras.movies.databinding.ContentDetailMovieBinding
 import com.aras.movies.ui.detail.movie.DetailMovieActivity
@@ -44,15 +44,15 @@ class DetailTvshowActivity : AppCompatActivity() {
 
             activityDetailMovieBinding.progressBar.visibility = View.VISIBLE
             activityDetailMovieBinding.content.visibility = View.INVISIBLE
-            viewModel.getTvshow().observe(this, {
+            viewModel.getTvshow().observe(this, { tvshow ->
                 activityDetailMovieBinding.progressBar.visibility = View.GONE
                 activityDetailMovieBinding.content.visibility = View.VISIBLE
-                populateTvshow(it)
+                populateTvshow(tvshow)
             })
         }
     }
 
-    private fun populateTvshow(tvshowEntity: TvshowEntity) {
+    private fun populateTvshow(tvshowEntity: TvshowItems) {
         detailContentBinding.apply {
             textTitleMovie.text = tvshowEntity.name
             textReleaseMovie.text = tvshowEntity.firstAirDate

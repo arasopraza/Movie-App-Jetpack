@@ -1,40 +1,33 @@
 package com.aras.movies.data.source.local.entity
 
-import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
+import androidx.room.ColumnInfo
+import androidx.room.Entity
 
-@Parcelize
+@Entity(tableName = "tvshow_entities")
 data class TvshowEntity(
 
-        @field:SerializedName("first_air_date")
+        @ColumnInfo(name = "release_date")
         val firstAirDate: String,
 
-        @field:SerializedName("overview")
+        @ColumnInfo(name = "overview")
         val overview: String,
 
-        @field:SerializedName("original_language")
-        val originalLanguage: String,
+//        val originalLanguage: String,
 
-        @field:SerializedName("poster_path")
+        @ColumnInfo(name = "poster_path")
         val posterPath: String,
 
+//        val originalName: String,
+//
+//        val popularity: Double,
 
-        @field:SerializedName("original_name")
-        val originalName: String,
+//        val voteAverage: Double,
 
-        @field:SerializedName("popularity")
-        val popularity: Double,
-
-        @field:SerializedName("vote_average")
-        val voteAverage: Double,
-
-        @field:SerializedName("name")
+        @ColumnInfo(name = "title")
         val name: String,
 
-        @field:SerializedName("id")
-        val id: Int,
+        @ColumnInfo(name = "tvshowId")
+        val tvshowId: Int
 
-        @field:SerializedName("vote_count")
-        val voteCount: Int
-) : Parcelable
+//        val voteCount: Int
+)

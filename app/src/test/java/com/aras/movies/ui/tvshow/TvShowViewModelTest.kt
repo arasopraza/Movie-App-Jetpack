@@ -5,7 +5,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.aras.movies.data.source.MovieRepository
-import com.aras.movies.data.source.local.entity.TvshowEntity
+import com.aras.movies.data.source.remote.response.TvshowItems
 import com.aras.movies.utils.DataDummy
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
@@ -30,7 +30,7 @@ class TvShowViewModelTest {
     private lateinit var repository: MovieRepository
 
     @Mock
-    private lateinit var observer: Observer<List<TvshowEntity>>
+    private lateinit var observer: Observer<List<TvshowItems>>
 
     @Before
     fun setUp() {
@@ -40,7 +40,7 @@ class TvShowViewModelTest {
     @Test
     fun getTvShow() {
         val dummyTvshow = DataDummy.generateDummyTvshows()
-        val tvshow = MutableLiveData<List<TvshowEntity>>()
+        val tvshow = MutableLiveData<List<TvshowItems>>()
         tvshow.value = dummyTvshow
 
         `when`(repository.getDiscoverTvshows()).thenReturn(tvshow)

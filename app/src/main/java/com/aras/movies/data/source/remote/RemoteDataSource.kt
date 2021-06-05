@@ -2,10 +2,7 @@ package com.aras.movies.data.source.remote
 
 import android.content.ContentValues.TAG
 import android.util.Log
-import com.aras.movies.data.source.local.entity.MovieEntity
-import com.aras.movies.data.source.local.entity.TvshowEntity
-import com.aras.movies.data.source.remote.response.MovieResponse
-import com.aras.movies.data.source.remote.response.TvshowResponse
+import com.aras.movies.data.source.remote.response.*
 import com.aras.movies.networking.ApiConfig
 import com.aras.movies.utils.EspressoIdlingResource
 import retrofit2.Call
@@ -47,10 +44,7 @@ class RemoteDataSource {
         EspressoIdlingResource.increment()
         val client = ApiConfig.getApiService().getDiscoverTvshow()
         client.enqueue(object : retrofit2.Callback<TvshowResponse> {
-            override fun onResponse(
-                call: Call<TvshowResponse>,
-                response: Response<TvshowResponse>
-            ) {
+            override fun onResponse(call: Call<TvshowResponse>, response: Response<TvshowResponse>) {
                 if (response.isSuccessful) {
                     Log.d(this@RemoteDataSource.toString(), "Get TV Success")
                     callback.onAllTvshowsReceived(response.body()?.results)
@@ -67,10 +61,10 @@ class RemoteDataSource {
     }
 
     interface LoadMoviesCallback {
-        fun onAllMoviesReceived(movieResponse: List<MovieEntity>?)
+        fun onAllMoviesReceived(movieResponse: List<MovieItems>?)
     }
 
     interface LoadTvshowsCallback {
-        fun onAllTvshowsReceived(tvshowResponse: List<TvshowEntity>?)
+        fun onAllTvshowsReceived(tvshowResponse: List<TvshowItems>?)
     }
 }
