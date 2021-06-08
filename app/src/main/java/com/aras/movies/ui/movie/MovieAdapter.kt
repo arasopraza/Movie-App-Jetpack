@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aras.movies.R
-import com.aras.movies.data.source.remote.response.MovieItems
+import com.aras.movies.data.source.local.entity.MovieEntity
 import com.aras.movies.databinding.ItemsMovieBinding
 import com.aras.movies.ui.detail.DetailMovieActivity
 import com.bumptech.glide.Glide
@@ -13,9 +13,9 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
-    private var listMovies = ArrayList<MovieItems>()
+    private var listMovies = ArrayList<MovieEntity>()
 
-    fun setMovies(movies: List<MovieItems>?) {
+    fun setMovies(movies: List<MovieEntity>?) {
         if (movies == null) return
         this.listMovies.clear()
         this.listMovies.addAll(movies)
@@ -39,7 +39,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     class MovieViewHolder(private val binding: ItemsMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: MovieItems) {
+        fun bind(movie: MovieEntity) {
             with(binding) {
                 tvItemTitle.text = movie.title
                 tvItemDate.text = movie.releaseDate
@@ -47,7 +47,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailMovieActivity::class.java)
-                    intent.putExtra(DetailMovieActivity.EXTRA_MOVIE, movie.movieId)
+                    intent.putExtra(DetailMovieActivity.EXTRA_MOVIE, movie.movieid)
                     itemView.context.startActivity(intent)
                 }
 

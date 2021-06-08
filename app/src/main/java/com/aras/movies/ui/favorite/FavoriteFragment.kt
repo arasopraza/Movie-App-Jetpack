@@ -9,7 +9,9 @@ import androidx.viewpager.widget.ViewPager
 import com.aras.movies.databinding.FragmentFavoriteBinding
 
 class FavoriteFragment : Fragment() {
-    private lateinit var binding: FragmentFavoriteBinding
+    private lateinit var fragmentFavoriteBinding: FragmentFavoriteBinding
+    private val binding get() =  fragmentFavoriteBinding
+
     private lateinit var sectionsPagerAdapter: SectionsPagerAdapter
     private lateinit var viewPager: ViewPager
 
@@ -18,7 +20,7 @@ class FavoriteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentFavoriteBinding.inflate(layoutInflater, container, false)
+        fragmentFavoriteBinding = FragmentFavoriteBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 

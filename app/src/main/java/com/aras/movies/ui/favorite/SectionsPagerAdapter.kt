@@ -18,8 +18,8 @@ class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager) :
 
     override fun getItem(position: Int): Fragment =
             when (position) {
-                0 -> MovieFragment()
-                1 -> TvShowFragment()
+                0 -> FavoriteMovieFragment()
+                1 -> MovieFragment()
                 else -> Fragment()
             }
 

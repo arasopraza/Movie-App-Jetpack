@@ -5,16 +5,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aras.movies.R
-import com.aras.movies.data.source.remote.response.TvshowItems
+import com.aras.movies.data.source.local.entity.TvshowEntity
 import com.aras.movies.databinding.ItemsMovieBinding
 import com.aras.movies.ui.detail.DetailMovieActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvshowViewHolder>() {
-    private var listTvshows = ArrayList<TvshowItems>()
+    private var listTvshows = ArrayList<TvshowEntity>()
 
-    fun setTvshows(tvshows: List<TvshowItems>?) {
+    fun setTvshows(tvshows: List<TvshowEntity>?) {
         if (tvshows == null) return
         this.listTvshows.clear()
         this.listTvshows.addAll(tvshows)
@@ -38,7 +38,7 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvshowViewHolder>() {
 
     class TvshowViewHolder(private val binding: ItemsMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(tvshow: TvshowItems) {
+        fun bind(tvshow: TvshowEntity) {
             with(binding) {
                 tvItemTitle.text = tvshow.name
                 tvItemDate.text = tvshow.firstAirDate

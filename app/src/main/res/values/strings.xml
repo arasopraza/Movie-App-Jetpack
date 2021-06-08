@@ -10,4 +10,5 @@
     <string name="release_movie">Release Movie</string>
     <string name="overview">Overview</string>
     <string name="overview_movie">Overview Movie</string>
+    <string name="menu_detail">Menu Detail</string>
 </resources>

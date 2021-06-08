@@ -1,33 +1,45 @@
 package com.aras.movies.data.source.local.entity
 
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "tvshow_entities")
 data class TvshowEntity(
 
-        @ColumnInfo(name = "release_date")
-        val firstAirDate: String,
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "tvshowId")
+    val tvshowId: Int,
 
-        @ColumnInfo(name = "overview")
-        val overview: String,
+    @ColumnInfo(name = "title")
+    val name: String,
 
-//        val originalLanguage: String,
+    @ColumnInfo(name = "original_name")
+    val originalName: String,
 
-        @ColumnInfo(name = "poster_path")
-        val posterPath: String,
+    @ColumnInfo(name = "original_language")
+    val originalLanguage: String,
 
-//        val originalName: String,
-//
-//        val popularity: Double,
+    @ColumnInfo(name = "release_date")
+    val firstAirDate: String,
 
-//        val voteAverage: Double,
+    @ColumnInfo(name = "overview")
+    val overview: String,
 
-        @ColumnInfo(name = "title")
-        val name: String,
+    @ColumnInfo(name = "poster_path")
+    val posterPath: String,
 
-        @ColumnInfo(name = "tvshowId")
-        val tvshowId: Int
+    @ColumnInfo(name = "popularity")
+    val popularity: Double,
 
-//        val voteCount: Int
+    @ColumnInfo(name = "vote_average")
+    val voteAverage: Double,
+
+    @ColumnInfo(name = "vote_count")
+    val voteCount: Int,
+
+    @ColumnInfo(name = "favorited")
+    var favorited: Boolean = false
 )

@@ -8,30 +8,38 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "movie_entities")
 data class MovieEntity(
 
-        @ColumnInfo(name = "overview")
-        val overview: String,
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "movieId")
+    val movieid: Int,
 
-//        val originalLanguage: String,
-//
-//        val originalTitle: String,
+    @ColumnInfo(name = "title")
+    val title: String,
 
-        @ColumnInfo(name = "title")
-        val title: String,
+    @ColumnInfo(name = "original_title")
+    val originalTitle: String,
 
-        @ColumnInfo(name = "poster_path")
-        val posterPath: String,
+    @ColumnInfo(name = "original_language")
+    val originalLanguage: String,
 
-        @ColumnInfo(name = "release_date")
-        val releaseDate: String,
+    @ColumnInfo(name = "release_date")
+    val releaseDate: String,
 
-//        val popularity: Double,
-//
-//        val voteAverage: Double,
+    @ColumnInfo(name = "overview")
+    val overview: String,
 
-        @PrimaryKey
-        @NonNull
-        @ColumnInfo(name = "movieId")
-        val movieid: Int
+    @ColumnInfo(name = "poster_path")
+    val posterPath: String,
 
-//        val voteCount: Int
+    @ColumnInfo(name = "popularity")
+    val popularity: Double,
+
+    @ColumnInfo(name = "vote_average")
+    val voteAverage: Double,
+
+    @ColumnInfo(name = "vote_count")
+    val voteCount: Int,
+
+    @ColumnInfo(name = "favorited")
+    var favorited: Boolean = false
 )

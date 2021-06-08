@@ -1,8 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-parcelize'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -42,6 +42,7 @@ android {
 
 dependencies {
     //kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$coreVersion"
 
     //ui
