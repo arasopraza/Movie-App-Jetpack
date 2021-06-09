@@ -1,8 +1,6 @@
 package com.aras.movies.ui.detail
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -28,6 +26,8 @@ class DetailMovieActivity : AppCompatActivity() {
     private lateinit var activityDetailMovieBinding: ActivityDetailMovieBinding
     private lateinit var detailContentBinding: ContentDetailMovieBinding
     private lateinit var viewModel: DetailMovieViewModel
+    private lateinit var movieEntity: MovieEntity
+    private lateinit var tvshowEntity: TvshowEntity
     private var menu: Menu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +47,7 @@ class DetailMovieActivity : AppCompatActivity() {
 
         val extras = intent.extras
         if (extras != null) {
-//            if (intent.hasExtra(EXTRA_MOVIE)) {
+            if (intent.hasExtra(EXTRA_MOVIE)) {
                 val movieId = extras.getInt(EXTRA_MOVIE)
                 viewModel.selectedMovie(movieId)
 
@@ -55,41 +55,51 @@ class DetailMovieActivity : AppCompatActivity() {
                 activityDetailMovieBinding.content.visibility = View.INVISIBLE
 
                 viewModel.getMovie().observe(this, { movies ->
+                    movieEntity = movies
                     activityDetailMovieBinding.progressBar.visibility = View.GONE
                     activityDetailMovieBinding.content.visibility = View.VISIBLE
                     populateMovie(movies)
                 })
-//            } else if (intent.hasExtra(EXTRA_TVSHOW)) {
-//                val tvshowId = extras.getInt(EXTRA_TVSHOW)
-//                viewModel.selectedTvshow(tvshowId)
-//
-//                activityDetailMovieBinding.progressBar.visibility = View.VISIBLE
-//                activityDetailMovieBinding.content.visibility = View.INVISIBLE
-//
-//                viewModel.getTvshow().observe(this, { tvshow ->
-//                    activityDetailMovieBinding.progressBar.visibility = View.GONE
-//                    activityDetailMovieBinding.content.visibility = View.VISIBLE
-//                    populateTvshow(tvshow)
-//                })
-//            }
+            } else if (intent.hasExtra(EXTRA_TVSHOW)) {
+                val tvshowId = extras.getInt(EXTRA_TVSHOW)
+                viewModel.selectedTvshow(tvshowId)
+
+                activityDetailMovieBinding.progressBar.visibility = View.VISIBLE
+                activityDetailMovieBinding.content.visibility = View.INVISIBLE
+                viewModel.getTvshow().observe(this, { tvshow ->
+                    tvshowEntity = tvshow
+                    activityDetailMovieBinding.progressBar.visibility = View.GONE
+                    activityDetailMovieBinding.content.visibility = View.VISIBLE
+                    populateTvshow(tvshow)
+                })
+            }
         }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_detail, menu)
         this.menu = menu
-        viewModel.getMovie().observe(this, { movie ->
-            val state = movie.favorited
+        if (intent.hasExtra(EXTRA_MOVIE)) {
+            val state = movieEntity.favorited
             setFavoriteState(state)
-            Log.d(TAG, "Add Favorite ${setFavoriteState(state)} Movie Success")
-        })
+        } else if (intent.hasExtra(EXTRA_TVSHOW)) {
+            val state = tvshowEntity.favorited
+            setFavoriteState(state)
+        }
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_favorite) {
-            viewModel.setMovieFavorite()
-            Log.d(this@DetailMovieActivity.toString(), "Add Favorite Movie Success")
+            if (intent.hasExtra(EXTRA_MOVIE)) {
+                movieEntity.favorited = !movieEntity.favorited
+                viewModel.setMovieFavorite(movieEntity)
+                setFavoriteState(movieEntity.favorited)
+            } else if (intent.hasExtra(EXTRA_TVSHOW)) {
+                tvshowEntity.favorited = !tvshowEntity.favorited
+                viewModel.setTvshowFavorite(tvshowEntity)
+                setFavoriteState(tvshowEntity.favorited)
+            }
             return true
         }
         return super.onOptionsItemSelected(item)
@@ -112,22 +122,22 @@ class DetailMovieActivity : AppCompatActivity() {
         }
     }
 
-//    private fun populateTvshow(data: TvshowEntity) {
-//        detailContentBinding.apply {
-//            textTitleMovie.text = data.name
-//            textReleaseMovie.text = data.firstAirDate
-//            textOverviewMovie.text = data.overview
-//
-//            Glide.with(this@DetailMovieActivity)
-//                .load("https://image.tmdb.org/t/p/w500/" + data.posterPath)
-//                .transform(RoundedCorners(16))
-//                .apply(
-//                    RequestOptions.placeholderOf(R.drawable.ic_loading)
-//                        .error(R.drawable.ic_error)
-//                )
-//                .into(imagePoster)
-//        }
-//    }
+    private fun populateTvshow(data: TvshowEntity) {
+        detailContentBinding.apply {
+            textTitleMovie.text = data.name
+            textReleaseMovie.text = data.firstAirDate
+            textOverviewMovie.text = data.overview
+
+            Glide.with(this@DetailMovieActivity)
+                .load("https://image.tmdb.org/t/p/w500/" + data.posterPath)
+                .transform(RoundedCorners(16))
+                .apply(
+                    RequestOptions.placeholderOf(R.drawable.ic_loading)
+                        .error(R.drawable.ic_error)
+                )
+                .into(imagePoster)
+        }
+    }
 
     private fun setFavoriteState(state: Boolean) {
         if (menu == null) return

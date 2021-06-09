@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.aras.movies.R
-import com.aras.movies.ui.movie.MovieFragment
-import com.aras.movies.ui.tvshow.TvShowFragment
+import com.aras.movies.ui.favorite.movie.FavoriteMovieFragment
+import com.aras.movies.ui.favorite.tvshow.FavoriteTvshowFragment
 
 class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
@@ -19,7 +19,7 @@ class SectionsPagerAdapter(private val mContext: Context, fm: FragmentManager) :
     override fun getItem(position: Int): Fragment =
             when (position) {
                 0 -> FavoriteMovieFragment()
-                1 -> MovieFragment()
+                1 -> FavoriteTvshowFragment()
                 else -> Fragment()
             }
 
