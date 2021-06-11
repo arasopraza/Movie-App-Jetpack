@@ -83,8 +83,6 @@ class HomeActivityTest {
 
     @Test
     fun loadFavoriteMovie() {
-        onView(withId(R.id.navigation_movie)).check(matches(isDisplayed())).perform(click())
-        onView(allOf(isDisplayed(), withId(R.id.rv_movie))).perform(click())
         onView(withId(R.id.rv_movie)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                 0,
@@ -93,8 +91,8 @@ class HomeActivityTest {
         )
         onView(withId(R.id.action_favorite)).perform(click())
         onView(isRoot()).perform(ViewActions.pressBack())
-        onView(withText("Favorite")).perform(click())
-        onView(withId(R.id.rv_movie)).check(matches(isDisplayed()))
+        onView(withId(R.id.navigation_movie)).check(matches(isDisplayed())).perform(click())
+        onView(allOf(withId(R.id.rv_movie), isDisplayed()))
         onView(withId(R.id.rv_movie)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                 0,
@@ -111,17 +109,17 @@ class HomeActivityTest {
     @Test
     fun loadFavoriteTvshow() {
         onView(withId(R.id.navigation_tvshow)).check(matches(isDisplayed())).perform(click())
-        onView(withId(R.id.rv_movie)).perform(
+        onView(withId(R.id.rv_tvshow)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                1,
+                0,
                 click()
             )
         )
         onView(withId(R.id.action_favorite)).perform(click())
         onView(isRoot()).perform(ViewActions.pressBack())
-        onView(withText("Favorite")).perform(click())
-        onView(withId(R.id.rv_movie)).check(matches(isDisplayed()))
-        onView(withId(R.id.rv_movie)).perform(
+        onView(withId(R.id.navigation_tvshow)).check(matches(isDisplayed())).perform(click())
+        onView(allOf(withId(R.id.rv_tvshow), isDisplayed()))
+        onView(withId(R.id.rv_tvshow)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                 0,
                 click()
