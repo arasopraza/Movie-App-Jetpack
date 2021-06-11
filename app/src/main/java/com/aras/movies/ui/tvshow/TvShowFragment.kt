@@ -40,7 +40,7 @@ class TvShowFragment : Fragment() {
                         Status.LOADING -> binding?.progressBar?.visibility = View.VISIBLE
                         Status.SUCCESS -> {
                             binding?.progressBar?.visibility = View.GONE
-                            tvshowAdapter.setTvshows(tvshow.data)
+                            tvshowAdapter.submitList(tvshow.data)
                             tvshowAdapter.notifyDataSetChanged()
                         }
                         Status.ERROR -> {

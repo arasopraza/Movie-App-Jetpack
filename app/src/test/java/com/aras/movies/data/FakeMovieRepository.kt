@@ -1,6 +1,8 @@
 package com.aras.movies.data
 
 import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.aras.movies.data.source.MovieDataSource
 import com.aras.movies.data.source.local.LocalDataSource
 import com.aras.movies.data.source.local.entity.MovieEntity
@@ -17,15 +19,21 @@ class FakeMovieRepository(
 ) :
     MovieDataSource {
 
-    override fun getDiscoverMovies(): LiveData<Resource<List<MovieEntity>>> {
+    override fun getDiscoverMovies(): LiveData<Resource<PagedList<MovieEntity>>> {
         return object :
-            NetworkBoundResource<List<MovieEntity>, List<com.aras.movies.data.source.remote.response.MovieItems>>(
+            NetworkBoundResource<PagedList<MovieEntity>, List<com.aras.movies.data.source.remote.response.MovieItems>>(
                 appExecutors
             ) {
-            override fun loadFromDB(): LiveData<List<MovieEntity>> =
-                localDataSource.getAllMovies()
+            override fun loadFromDB(): LiveData<PagedList<MovieEntity>> {
+                val config = PagedList.Config.Builder()
+                    .setEnablePlaceholders(false)
+                    .setInitialLoadSizeHint(4)
+                    .setPageSize(4)
+                    .build()
+                return LivePagedListBuilder(localDataSource.getAllMovies(), config).build()
+            }
 
-            override fun shouldFetch(data: List<MovieEntity>?): Boolean =
+            override fun shouldFetch(data: PagedList<MovieEntity>?): Boolean =
                 data == null || data.isEmpty()
 
             override fun createCall(): LiveData<ApiResponse<List<com.aras.movies.data.source.remote.response.MovieItems>>> =
@@ -54,15 +62,21 @@ class FakeMovieRepository(
         }.asLiveData()
     }
 
-    override fun getDiscoverTvshows(): LiveData<Resource<List<TvshowEntity>>> {
+    override fun getDiscoverTvshows(): LiveData<Resource<PagedList<TvshowEntity>>> {
         return object :
-            NetworkBoundResource<List<TvshowEntity>, List<com.aras.movies.data.source.remote.response.TvshowItems>>(
+            NetworkBoundResource<PagedList<TvshowEntity>, List<com.aras.movies.data.source.remote.response.TvshowItems>>(
                 appExecutors
             ) {
-            override fun loadFromDB(): LiveData<List<TvshowEntity>> =
-                localDataSource.getAllTvshows()
+            override fun loadFromDB(): LiveData<PagedList<TvshowEntity>> {
+                val config = PagedList.Config.Builder()
+                    .setEnablePlaceholders(false)
+                    .setInitialLoadSizeHint(4)
+                    .setPageSize(4)
+                    .build()
+                return LivePagedListBuilder(localDataSource.getAllTvshows(), config).build()
+            }
 
-            override fun shouldFetch(data: List<TvshowEntity>?): Boolean =
+            override fun shouldFetch(data: PagedList<TvshowEntity>?): Boolean =
                 data == null || data.isEmpty()
 
             override fun createCall(): LiveData<ApiResponse<List<com.aras.movies.data.source.remote.response.TvshowItems>>> =
@@ -99,14 +113,26 @@ class FakeMovieRepository(
         return localDataSource.getTvshowDetail(tvshowId)
     }
 
-    override fun getFavoriteMovie(): LiveData<List<MovieEntity>> =
-        localDataSource.getFavoriteMovie()
+    override fun getFavoriteMovie(): LiveData<PagedList<MovieEntity>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4)
+            .setPageSize(4)
+            .build()
+        return LivePagedListBuilder(localDataSource.getFavoriteMovie(), config).build()
+    }
 
     override fun setMovieFavorite(movie: MovieEntity, state: Boolean) =
         appExecutors.diskIO().execute { localDataSource.setMovieFavorite(movie, state) }
 
-    override fun getFavoriteTvshow(): LiveData<List<TvshowEntity>> =
-        localDataSource.getFavoriteTvshow()
+    override fun getFavoriteTvshow(): LiveData<PagedList<TvshowEntity>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4)
+            .setPageSize(4)
+            .build()
+        return LivePagedListBuilder(localDataSource.getFavoriteTvshow(), config).build()
+    }
 
     override fun setTvshowFavorite(tvshow: TvshowEntity, state: Boolean) {
         appExecutors.diskIO().execute { localDataSource.setTvshowFavorite(tvshow, state) }

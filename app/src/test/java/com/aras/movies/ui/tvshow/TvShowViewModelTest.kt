@@ -3,6 +3,7 @@ package com.aras.movies.ui.tvshow
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import com.aras.movies.data.source.MovieRepository
 import com.aras.movies.data.source.local.entity.TvshowEntity
 import com.aras.movies.utils.DataDummy
@@ -30,7 +31,10 @@ class TvShowViewModelTest {
     private lateinit var repository: MovieRepository
 
     @Mock
-    private lateinit var observer: Observer<Resource<List<TvshowEntity>>>
+    private lateinit var observer: Observer<Resource<PagedList<TvshowEntity>>>
+
+    @Mock
+    private lateinit var pagedList: PagedList<TvshowEntity>
 
     @Before
     fun setUp() {
@@ -39,8 +43,9 @@ class TvShowViewModelTest {
 
     @Test
     fun getTvShow() {
-        val dummyTvshow = Resource.success(DataDummy.generateDummyTvshows())
-        val tvshow = MutableLiveData<Resource<List<TvshowEntity>>>()
+        val dummyTvshow = Resource.success(pagedList)
+        `when`(dummyTvshow.data?.size).thenReturn(10)
+        val tvshow = MutableLiveData<Resource<PagedList<TvshowEntity>>>()
         tvshow.value = dummyTvshow
 
         `when`(repository.getDiscoverTvshows()).thenReturn(tvshow)

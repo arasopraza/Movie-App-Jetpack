@@ -25,20 +25,13 @@ class MovieAdapter : PagedListAdapter<MovieEntity, MovieAdapter.MovieViewHolder>
             override fun areContentsTheSame(oldItem: MovieEntity, newItem: MovieEntity): Boolean {
                 return oldItem == newItem
             }
-
         }
     }
-
-    private var listMovies = ArrayList<MovieEntity>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val itemsMovieBinding =
             ItemsMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(itemsMovieBinding)
-    }
-
-    override fun getItemCount(): Int {
-        return listMovies.size
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {

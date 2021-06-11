@@ -9,5 +9,5 @@ import com.aras.movies.data.source.local.entity.TvshowEntity
 
 class FavoriteViewModel(private val movieRepository: MovieRepository): ViewModel() {
     fun getMovies(): LiveData<PagedList<MovieEntity>> = movieRepository.getFavoriteMovie()
-    fun getTvshow(): LiveData<List<TvshowEntity>> = movieRepository.getFavoriteTvshow()
+    fun getTvshow(): LiveData<PagedList<TvshowEntity>> = movieRepository.getFavoriteTvshow()
 }

@@ -3,9 +3,9 @@ package com.aras.movies.ui.movie
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import com.aras.movies.data.source.MovieRepository
 import com.aras.movies.data.source.local.entity.MovieEntity
-import com.aras.movies.utils.DataDummy
 import com.aras.movies.vo.Resource
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNotNull
@@ -30,7 +30,10 @@ class MovieViewModelTest {
     private lateinit var repository: MovieRepository
 
     @Mock
-    private lateinit var observer: Observer<Resource<List<MovieEntity>>>
+    private lateinit var observer: Observer<Resource<PagedList<MovieEntity>>>
+
+    @Mock
+    private lateinit var pagedList: PagedList<MovieEntity>
 
     @Before
     fun setUp() {
@@ -39,8 +42,9 @@ class MovieViewModelTest {
 
     @Test
     fun getMovies() {
-        val dummyMovie = Resource.success(DataDummy.generateDummyMovies())
-        val movie = MutableLiveData<Resource<List<MovieEntity>>>()
+        val dummyMovie = Resource.success(pagedList)
+        `when`(dummyMovie.data?.size).thenReturn(10)
+        val movie = MutableLiveData<Resource<PagedList<MovieEntity>>>()
         movie.value = dummyMovie
 
         `when`(repository.getDiscoverMovies()).thenReturn(movie)

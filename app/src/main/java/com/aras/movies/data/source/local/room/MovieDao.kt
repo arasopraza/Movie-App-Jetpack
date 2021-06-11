@@ -37,10 +37,10 @@ interface MovieDao {
     fun insertFavoriteTvshows(tvshow: List<TvshowEntity>)
 
     @Query("SELECT * FROM tvshow_entities")
-    fun getAllTvshows(): LiveData<List<TvshowEntity>>
+    fun getAllTvshows(): DataSource.Factory<Int, TvshowEntity>
 
     @Query("SELECT * FROM tvshow_entities where favorited = 1")
-    fun getFavoriteTvshow(): LiveData<List<TvshowEntity>>
+    fun getFavoriteTvshow(): DataSource.Factory<Int, TvshowEntity>
 
     @Query("SELECT * FROM tvshow_entities WHERE tvshowId = :tvshowId")
     fun getDetailTvshow(tvshowId: Int): LiveData<TvshowEntity>

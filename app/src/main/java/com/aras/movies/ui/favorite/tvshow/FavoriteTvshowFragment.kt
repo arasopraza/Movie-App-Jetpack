@@ -36,7 +36,7 @@ class FavoriteTvshowFragment : Fragment() {
             fragmentBinding?.progressBar?.visibility = View.VISIBLE
             viewModel.getTvshow().observe(viewLifecycleOwner, { tvshow ->
                 fragmentBinding?.progressBar?.visibility = View.GONE
-                movieAdapter.setTvshows(tvshow)
+                movieAdapter.submitList(tvshow)
                 movieAdapter.notifyDataSetChanged()
             })
 
