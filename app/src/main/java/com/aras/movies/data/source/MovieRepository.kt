@@ -7,8 +7,6 @@ import com.aras.movies.data.source.local.entity.MovieEntity
 import com.aras.movies.data.source.local.entity.TvshowEntity
 import com.aras.movies.data.source.remote.ApiResponse
 import com.aras.movies.data.source.remote.RemoteDataSource
-import com.aras.movies.data.source.remote.response.MovieItems
-import com.aras.movies.data.source.remote.response.TvshowItems
 import com.aras.movies.utils.AppExecutors
 import com.aras.movies.vo.Resource
 
@@ -35,17 +33,17 @@ class MovieRepository private constructor(
     }
 
     override fun getDiscoverMovies(): LiveData<Resource<List<MovieEntity>>> {
-        return object : NetworkBoundResource<List<MovieEntity>, List<MovieItems>>(appExecutors) {
+        return object : NetworkBoundResource<List<MovieEntity>, List<com.aras.movies.data.source.remote.response.MovieItems>>(appExecutors) {
             override fun loadFromDB(): LiveData<List<MovieEntity>> =
                 localDataSource.getAllMovies()
 
             override fun shouldFetch(data: List<MovieEntity>?): Boolean =
                 data == null || data.isEmpty()
 
-            override fun createCall(): LiveData<ApiResponse<List<MovieItems>>> =
+            override fun createCall(): LiveData<ApiResponse<List<com.aras.movies.data.source.remote.response.MovieItems>>> =
                 remoteDataSource.getDiscoverMovies()
 
-            override fun saveCallResult(data: List<MovieItems>) {
+            override fun saveCallResult(data: List<com.aras.movies.data.source.remote.response.MovieItems>) {
                 val movieList = ArrayList<MovieEntity>()
                 for (response in data) {
                     val movie = MovieEntity(
@@ -69,17 +67,17 @@ class MovieRepository private constructor(
     }
 
     override fun getDiscoverTvshows(): LiveData<Resource<List<TvshowEntity>>> {
-        return object : NetworkBoundResource<List<TvshowEntity>, List<TvshowItems>>(appExecutors) {
+        return object : NetworkBoundResource<List<TvshowEntity>, List<com.aras.movies.data.source.remote.response.TvshowItems>>(appExecutors) {
             override fun loadFromDB(): LiveData<List<TvshowEntity>> =
                 localDataSource.getAllTvshows()
 
             override fun shouldFetch(data: List<TvshowEntity>?): Boolean =
                 data == null || data.isEmpty()
 
-            override fun createCall(): LiveData<ApiResponse<List<TvshowItems>>> =
+            override fun createCall(): LiveData<ApiResponse<List<com.aras.movies.data.source.remote.response.TvshowItems>>> =
                 remoteDataSource.getDiscoverTvshow()
 
-            override fun saveCallResult(data: List<TvshowItems>) {
+            override fun saveCallResult(data: List<com.aras.movies.data.source.remote.response.TvshowItems>) {
                 val tvshowList = ArrayList<TvshowEntity>()
                 for (response in data) {
                     val tvshow = TvshowEntity(

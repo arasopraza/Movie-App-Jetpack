@@ -4,9 +4,12 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.aras.movies.data.source.MovieRepository
+import com.aras.movies.data.source.local.entity.MovieEntity
+import com.aras.movies.data.source.local.entity.TvshowEntity
 import com.aras.movies.data.source.remote.response.MovieItems
 import com.aras.movies.data.source.remote.response.TvshowItems
 import com.aras.movies.utils.DataDummy
+import com.aras.movies.vo.Resource
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -34,10 +37,10 @@ class DetailMovieViewModelTest {
     private lateinit var repository: MovieRepository
 
     @Mock
-    private lateinit var observerMovie: Observer<MovieItems>
+    private lateinit var observerMovie: Observer<MovieEntity>
 
     @Mock
-    private lateinit var observerTvshow: Observer<TvshowItems>
+    private lateinit var observerTvshow: Observer<TvshowEntity>
 
     @Before
     fun setUp() {
@@ -48,11 +51,12 @@ class DetailMovieViewModelTest {
 
     @Test
     fun getMovie() {
-        val movie = MutableLiveData<MovieItems>()
+        val movie = MutableLiveData<MovieEntity>()
         movie.value = dummyMovie
 
         `when`(repository.getDetailMovie(movieId)).thenReturn(movie)
-        val movieEntity = viewModel.getMovie().value as MovieItems
+
+        val movieEntity = viewModel.getMovie().value as MovieEntity
         verify(repository).getDetailMovie(movieId)
         assertNotNull(movieEntity)
         assertEquals(dummyMovie.movieId, movieEntity.movieId)
@@ -67,11 +71,11 @@ class DetailMovieViewModelTest {
 
     @Test
     fun getTvshow() {
-        val tvshow = MutableLiveData<TvshowItems>()
+        val tvshow = MutableLiveData<TvshowEntity>()
         tvshow.value = dummyTvshow
 
         `when`(repository.getDetailTvshow(tvshowId)).thenReturn(tvshow)
-        val tvshowEntity = viewModel.getTvshow().value as TvshowItems
+        val tvshowEntity = viewModel.getTvshow().value as TvshowEntity
         verify(repository).getDetailTvshow(tvshowId)
         assertNotNull(tvshowEntity)
         assertEquals(dummyTvshow.tvshowId, tvshowEntity.tvshowId)

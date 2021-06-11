@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
@@ -11,6 +12,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import com.aras.movies.R
 import com.aras.movies.ui.utils.FakeDataDummy
 import com.aras.movies.utils.EspressoIdlingResource
+import org.hamcrest.CoreMatchers.allOf
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -56,7 +58,7 @@ class HomeActivityTest {
 
     @Test
     fun loadTvshows() {
-        onView(withText("TV SHOW")).perform(click())
+        onView(withId(R.id.navigation_tvshow)).check(matches(isDisplayed())).perform(click())
         onView(withId(R.id.rv_tvshow)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_tvshow)).perform(
             RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
@@ -67,7 +69,7 @@ class HomeActivityTest {
 
     @Test
     fun loadDetailTvshow() {
-        onView(withText("TV SHOW")).perform(click())
+        onView(withId(R.id.navigation_tvshow)).check(matches(isDisplayed())).perform(click())
         onView(withId(R.id.rv_tvshow)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                 0,
@@ -77,5 +79,58 @@ class HomeActivityTest {
         onView(withId(R.id.text_title_movie)).check(matches(isDisplayed()))
         onView(withId(R.id.text_release_movie)).check(matches(isDisplayed()))
         onView(withId(R.id.text_overview_movie)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun loadFavoriteMovie() {
+        onView(withId(R.id.navigation_movie)).check(matches(isDisplayed())).perform(click())
+        onView(allOf(isDisplayed(), withId(R.id.rv_movie))).perform(click())
+        onView(withId(R.id.rv_movie)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0,
+                click()
+            )
+        )
+        onView(withId(R.id.action_favorite)).perform(click())
+        onView(isRoot()).perform(ViewActions.pressBack())
+        onView(withText("Favorite")).perform(click())
+        onView(withId(R.id.rv_movie)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_movie)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0,
+                click()
+            )
+        )
+        onView(withId(R.id.text_title_movie)).check(matches(isDisplayed()))
+        onView(withId(R.id.text_release_movie)).check(matches(isDisplayed()))
+        onView(withId(R.id.text_overview_movie)).check(matches(isDisplayed()))
+        onView(withId(R.id.action_favorite)).perform(click())
+        onView(isRoot()).perform(ViewActions.pressBack())
+    }
+
+    @Test
+    fun loadFavoriteTvshow() {
+        onView(withId(R.id.navigation_tvshow)).check(matches(isDisplayed())).perform(click())
+        onView(withId(R.id.rv_movie)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                1,
+                click()
+            )
+        )
+        onView(withId(R.id.action_favorite)).perform(click())
+        onView(isRoot()).perform(ViewActions.pressBack())
+        onView(withText("Favorite")).perform(click())
+        onView(withId(R.id.rv_movie)).check(matches(isDisplayed()))
+        onView(withId(R.id.rv_movie)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0,
+                click()
+            )
+        )
+        onView(withId(R.id.text_title_movie)).check(matches(isDisplayed()))
+        onView(withId(R.id.text_release_movie)).check(matches(isDisplayed()))
+        onView(withId(R.id.text_overview_movie)).check(matches(isDisplayed()))
+        onView(withId(R.id.action_favorite)).perform(click())
+        onView(isRoot()).perform(ViewActions.pressBack())
     }
 }
