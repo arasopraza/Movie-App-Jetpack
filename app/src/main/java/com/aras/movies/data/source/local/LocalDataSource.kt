@@ -1,6 +1,7 @@
 package com.aras.movies.data.source.local
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import com.aras.movies.data.source.local.entity.MovieEntity
 import com.aras.movies.data.source.local.entity.TvshowEntity
 import com.aras.movies.data.source.local.room.MovieDao
@@ -15,8 +16,8 @@ class LocalDataSource private constructor(private val mMovieDao: MovieDao) {
     }
 
     fun insertMovie(movie: List<MovieEntity>) = mMovieDao.insertMovies(movie)
-    fun getAllMovies(): LiveData<List<MovieEntity>> = mMovieDao.getAllMovies()
-    fun getFavoriteMovie(): LiveData<List<MovieEntity>> = mMovieDao.getFavoriteMovie()
+    fun getAllMovies(): DataSource.Factory<Int, MovieEntity> = mMovieDao.getAllMovies()
+    fun getFavoriteMovie(): DataSource.Factory<Int, MovieEntity> = mMovieDao.getFavoriteMovie()
     fun getMovieDetail(movieId: Int): LiveData<MovieEntity> = mMovieDao.getDetailMovie(movieId)
     fun insertTvshow(tvshow: List<TvshowEntity>) = mMovieDao.insertTvshows(tvshow)
     fun getAllTvshows(): LiveData<List<TvshowEntity>> = mMovieDao.getAllTvshows()

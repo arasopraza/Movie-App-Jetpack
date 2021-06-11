@@ -1,6 +1,7 @@
 package com.aras.movies.data.source.local.room
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 import com.aras.movies.data.source.local.entity.MovieEntity
 import com.aras.movies.data.source.local.entity.TvshowEntity
@@ -18,10 +19,10 @@ interface MovieDao {
     fun updateMovie(movieEntity: MovieEntity)
 
     @Query("SELECT * FROM movie_entities")
-    fun getAllMovies(): LiveData<List<MovieEntity>>
+    fun getAllMovies(): DataSource.Factory<Int, MovieEntity>
 
     @Query("SELECT * FROM movie_entities where favorited = 1")
-    fun getFavoriteMovie(): LiveData<List<MovieEntity>>
+    fun getFavoriteMovie(): DataSource.Factory<Int, MovieEntity>
 
     @Query("SELECT * FROM movie_entities WHERE movieId = :movieId")
     fun getDetailMovie(movieId: Int): LiveData<MovieEntity>
